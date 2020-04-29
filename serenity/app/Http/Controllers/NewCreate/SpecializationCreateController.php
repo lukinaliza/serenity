@@ -16,7 +16,8 @@ class SpecializationCreateController extends Controller
      */
     public function index()
     {
-        //
+        $specialization=ListSpecialization::orderBy('created_at')->get();
+        return view('admin.pages.index_specialization')->withSpecialization($specialization);;
     }
 
     /**
@@ -75,7 +76,7 @@ class SpecializationCreateController extends Controller
         $specialization=ListSpecialization::find($id);
 
         return view('admin.pages.edit_specialization')->withSpecialization($specialization);
-   
+
     }
 
     /**
@@ -107,6 +108,11 @@ class SpecializationCreateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $specialization=ListSpecialization::find($id);
+
+        $specialization->delete();
+
+        return view('admin.pages.index_specialization');
+
     }
 }

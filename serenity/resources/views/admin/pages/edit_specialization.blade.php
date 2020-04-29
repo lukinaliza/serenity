@@ -3,8 +3,8 @@
 @section('title', 'Добавить поле')
 
 @section('content')
-   
-    {!!  Form::model($specialization, ['route' => ['specialization.update', $specialization->id],  'method' => 'put'])!!}}
+
+    {!!  Form::model($specialization, ['route' => ['specialization.update', $specialization->id],  'method' => 'put'])!!}
     <div class="form-group">
        <div class="col-md-15">
              {{Form::label('name', 'Название специализации')}}
@@ -25,6 +25,6 @@
          {{Form::submit('Добавить', null, ['class'=>'btn btn-primrary'])}}
     </div>
     </div>
-        
+
     {!! Form::close() !!}
 @endsection
