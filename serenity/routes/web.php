@@ -11,6 +11,22 @@
 |
 */
 
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
+    Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('service', 'ServiceInsertController'); 
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('specialization', 'SpecializationCreateController'); 
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
