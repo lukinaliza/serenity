@@ -1,4 +1,4 @@
 @if(Session::has('success'))
-    <p class="alert alert-success">
-    {{ Session::get('success') }}</p>
+    <div class="alert alert-success">
+    {{ Session::get('success') }}</div>
 @endif

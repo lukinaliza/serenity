@@ -16,11 +16,15 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], 
 });
 
 Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
-    Route::resource('service', 'ServiceInsertController'); 
+    Route::resource('service', 'ServiceInsertController');
 });
 
 Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
-    Route::resource('specialization', 'SpecializationCreateController'); 
+    Route::resource('specialization', 'SpecializationCreateController');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('master', 'MasterCreateController');
 });
 
 Route::get('/', function () {

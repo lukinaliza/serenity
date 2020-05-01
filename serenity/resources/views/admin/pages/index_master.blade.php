@@ -9,23 +9,25 @@
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Название</th>
-      <th scope="col">Описание</th>
+      <th scope="col">ID</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Номер телефона</th>
       <th scope="col">Управление</th>
     </tr>
   </thead>
   <tbody>
 
-    @foreach($specialization as $s)
+    @foreach($master as $s)
      <tr>
       <th scope="row">{{$s->id}}</th>
+      <td>{{ $s->surname }}</td>
       <td>{{ $s->name }}</td>
-      <td>{{ $s->description }}</td>
+      <td>{{ $s->phone }}</td>
        <td>
-          <a href={{url("/create/specialization/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
+         <a href={{url("/create/master/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>
-            {!! Form::open(['route' => ['specialization.destroy', $s->id],  'method' => 'delete'])!!}
+            {!! Form::open(['route' => ['master.destroy', $s->id],  'method' => 'delete'])!!}
             {!!Form::submit('Удалить',['type' => 'submit', 'name' => 'delete', 'value' => 'delete', 'class' => 'btn btn-danger', 'title' => 'Удалить из базы', 'style' => 'position: relative;float: left;']) !!}
             {!! Form::close() !!}
       </td>
