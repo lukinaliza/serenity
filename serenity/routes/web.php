@@ -27,6 +27,10 @@ Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth
     Route::resource('master', 'MasterCreateController');
 });
 
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('pricelist', 'PriceListCreateController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
