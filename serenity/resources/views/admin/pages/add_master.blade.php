@@ -7,7 +7,7 @@
 
     <head>
   <meta charset="utf-8">
-  <title>Добавить мастера</title>
+  <title>Добавить услугу</title>
   <style>
    .text {
     margin-left: auto;
@@ -44,6 +44,7 @@
              {{Form::text('phone', null, ['class'=>'form-control'])}}
         </div>
         </div>
+    <div class="form-group">
     <div class="col-md-15">
          {{Form::submit('Добавить', null, ['class'=>'btn btn-success'])}}
     </div>

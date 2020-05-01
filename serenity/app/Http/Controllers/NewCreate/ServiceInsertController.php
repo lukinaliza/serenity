@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\NewCreate;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class ServiceInsertController extends Controller
      */
     public function index()
     {
-        //
+        $service=Service::orderBy('created_at')->get();
+        return view('admin.pages.index_service')->withService($service);;
     }
 
     /**
@@ -24,7 +26,7 @@ class ServiceInsertController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.create');
+        return view('admin.pages.add_service');
     }
 
     /**
@@ -35,7 +37,18 @@ class ServiceInsertController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $service = new Service();
+
+        $service->name=$request->name;
+        $service->description=$request->description;
+        $service->list_special_id=$request->list_special_id;
+        $service->save();
+
+        $request->session()->flash('success', 'Сервис добавлен!');
+
+
+        return redirect()->route('service.show', $service->id);
+
     }
 
     /**
@@ -46,7 +59,9 @@ class ServiceInsertController extends Controller
      */
     public function show($id)
     {
-        //
+        $service=Service::find($id);
+
+        return view('admin.pages.show_service')->withService($service);
     }
 
     /**
@@ -57,7 +72,10 @@ class ServiceInsertController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service=Service::find($id);
+
+        return view('admin.pages.edit_service')->withService($service);
+
     }
 
     /**
@@ -69,7 +87,17 @@ class ServiceInsertController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service=Service::find($id);
+
+        $service->name=$request->name;
+        $service->description=$request->description;
+        $service->list_special_id=$request->list_special_id;
+        $service->save();
+
+        $request->session()->flash('success', 'Сервис изменен успешно!');
+
+        return redirect()->route('service.show', $service->id);
+
     }
 
     /**
@@ -80,6 +108,11 @@ class ServiceInsertController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service=Service::find($id);
+
+        $service->delete();
+
+        return redirect()->route('service.index');
+
     }
 }
