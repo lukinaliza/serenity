@@ -3,29 +3,29 @@
 @section('content')
 <head>
   <meta charset="utf-8">
-  <title>Таблица специализаций</title>
+  <title>Таблица специалистов</title>
  </head>
 
     <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Название</th>
-      <th scope="col">Описание</th>
+      <th scope="col">Категория</th>
+      <th scope="col">Мастер</th>
       <th scope="col">Управление</th>
     </tr>
   </thead>
   <tbody>
 
-    @foreach($specialization as $s)
+    @foreach($specializ as $s)
      <tr>
       <th scope="row">{{$s->id}}</th>
-      <td>{{ $s->name }}</td>
-      <td>{{ $s->description }}</td>
+      <td>{{$s->list_specialization_id}}</td>
+      <td>{{$s->master_id}}</td>
        <td>
-          <a href={{url("/create/specialization/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
+          <a href={{url("/create/specializ/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>
-            {!! Form::open(['route' => ['specialization.destroy', $s->id],  'method' => 'delete'])!!}
+            {!! Form::open(['route' => ['specializ.destroy', $s->id],  'method' => 'delete'])!!}
             {!!Form::submit('Удалить',['type' => 'submit', 'name' => 'delete', 'value' => 'delete', 'class' => 'btn btn-danger', 'title' => 'Удалить из базы', 'style' => 'position: relative;float: left;']) !!}
             {!! Form::close() !!}
       </td>

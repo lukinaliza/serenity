@@ -35,6 +35,10 @@ Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth
     Route::resource('sheldue', 'SheldueCreateController');
 });
 
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('specializ', 'SpecializCreateController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
