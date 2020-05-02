@@ -31,6 +31,10 @@ Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth
     Route::resource('pricelist', 'PriceListCreateController');
 });
 
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('sheldue', 'SheldueCreateController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
