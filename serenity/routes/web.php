@@ -51,6 +51,14 @@ Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth
     Route::resource('userrole', 'UserRoleCreateController');
 });
 
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('cheque', 'ChequeCreateController');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('serviceorder', 'ServiceOrderesCreateController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
