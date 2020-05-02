@@ -43,6 +43,14 @@ Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth
     Route::resource('specializ', 'SpecializCreateController');
 });
 
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('role', 'RoleCreateController');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('userrole', 'UserRoleCreateController');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
