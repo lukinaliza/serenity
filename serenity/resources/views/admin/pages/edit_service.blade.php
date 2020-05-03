@@ -4,7 +4,7 @@
 
 @section('content')
 
- {!!  Form::model($master, ['route' => ['master.update', $master->id],  'method' => 'put'])!!}
+ {!!  Form::model($service, ['route' => ['service.update', $service->id],  'method' => 'put'])!!}
  <head>
   <meta charset="utf-8">
   <title>Добавить мастера</title>
@@ -36,13 +36,19 @@
              {{Form::textarea('description', null, ['class'=>'form-control'])}}
         </div>
     </div>
-     <div class="form-group">
-       <div class="col-md-15">
-             {{Form::label('list_special_id', 'Описание')}}
+    <div class="form-group">
+        <div class="col-md-15">
+             {{Form::label('list_special_id', 'Категория')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('list_special_id', null, ['class'=>'form-control'])}}
-        </div>
+        {{ Form::select('list_special_id', $idlist, 'id') }}
+     </div>
+     </div>
+     <div class="form-group">
+      <div class="col-md-15">
+         {{Form::submit('Изменить', null, ['class'=>'btn btn-success'])}}
+       </div>
+      </div>
     </div>
     </div>
  </body>

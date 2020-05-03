@@ -23,7 +23,7 @@
       <th scope="row">{{$s->id}}</th>
       <td>{{ $s->name }}</td>
       <td>{{ $s->description }}</td>
-      <td>{{ $s->list_special_id }}</td>
+      <td>{{ $s->categ }}</td>
        <td>
          <a href={{url("/create/service/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>

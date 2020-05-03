@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\NewCreate;
 
 use App\Models\Service;
+use App\Models\ListSpecialization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,8 +16,10 @@ class ServiceInsertController extends Controller
      */
     public function index()
     {
-        $service=Service::orderBy('created_at')->get();
-        return view('admin.pages.index_service')->withService($service);;
+        $idlist=new ListSpecialization;
+        $service=Service::join('list_specializations' ,'list_specializations.id' , '=','services.list_special_id')->
+        select('services.id', 'services.name', 'services.description', 'list_specializations.name as categ')->get();
+        return view('admin.pages.index_service')->withService($service);
     }
 
     /**
@@ -26,7 +29,9 @@ class ServiceInsertController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_service');
+        $idlist=ListSpecialization::pluck('name','id');
+
+        return view('admin.pages.add_service')->withIdlist($idlist);
     }
 
     /**
@@ -38,10 +43,11 @@ class ServiceInsertController extends Controller
     public function store(Request $request)
     {
         $service = new Service();
-
+        $idlist=new ListSpecialization;
         $service->name=$request->name;
         $service->description=$request->description;
         $service->list_special_id=$request->list_special_id;
+
         $service->save();
 
         $request->session()->flash('success', 'Сервис добавлен!');
@@ -73,8 +79,9 @@ class ServiceInsertController extends Controller
     public function edit($id)
     {
         $service=Service::find($id);
+        $idlist=ListSpecialization::pluck('name','id');
 
-        return view('admin.pages.edit_service')->withService($service);
+        return view('admin.pages.edit_service')->withService($service)->withIdlist($idlist);
 
     }
 
