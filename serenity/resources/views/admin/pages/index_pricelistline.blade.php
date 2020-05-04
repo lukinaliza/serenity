@@ -21,8 +21,8 @@
      <tr>
       <th scope="row">{{$s->id}}</th>
       <td>{{ $s->cost }}</td>
-      <td>{{ $s->service_id }}</td>
-      <td>{{ $s->pricelist_id }}</td>
+      <td>{{ $s->servname }}</td>
+      <td>{{ $s->pricename }}</td>
        <td>
          <a href={{url("/create/pricelistline/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>

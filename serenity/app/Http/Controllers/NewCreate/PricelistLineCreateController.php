@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\NewCreate;
 
+use App\Models\Service;
+use App\Models\Pricelist;
 use App\Models\PricelistLine;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,8 +17,13 @@ class PricelistLineCreateController extends Controller
      */
     public function index()
     {
-        $pricelistline=PricelistLine::orderBy('created_at')->get();
-        return view('admin.pages.index_pricelistline')->withPricelistline($pricelistline);;
+        $idpricelist=new Pricelist;
+        $idservice=new Service;
+        $pricelistline=PricelistLine::join('pricelists' ,'pricelists.id' , '=','pricelist_lines.pricelist_id')->
+        join('services' ,'services.id' , '=','pricelist_lines.service_id')->
+        select('pricelist_lines.id', 'pricelist_lines.cost', 'pricelists.name as pricename', 'services.name as servname')->get();
+         return view('admin.pages.index_pricelistline')->withPricelistline($pricelistline);
+
     }
 
     /**
@@ -26,7 +33,9 @@ class PricelistLineCreateController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_pricelistline');
+        $idpricelist=Pricelist::pluck('name','id');
+        $idservice=Service::pluck('name','id');
+        return view('admin.pages.add_pricelistline')->withIdpricelist($idpricelist)->withIdservice($idservice);
     }
 
     /**
@@ -72,9 +81,11 @@ class PricelistLineCreateController extends Controller
      */
     public function edit($id)
     {
+        $idpricelist=Pricelist::pluck('name','id');
+        $idservice=Service::pluck('name','id');
         $pricelistline=PricelistLine::find($id);
 
-        return view('admin.pages.edit_pricelistline')->withPricelistline($pricelistline);
+        return view('admin.pages.edit_pricelistline')->withPricelistline($pricelistline)->withIdpricelist($idpricelist)->withIdservice($idservice);;
 
     }
 

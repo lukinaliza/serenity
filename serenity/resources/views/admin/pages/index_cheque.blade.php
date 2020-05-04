@@ -11,7 +11,8 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Дата</th>
-      <th scope="col">Пользователь</th>
+      <th scope="col">Клиент</th>
+      <th scope="col">Номер телефона клиента</th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +21,8 @@
      <tr>
       <th scope="row">{{$s->id}}</th>
       <td>{{ $s->date }}</td>
-      <td>{{ $s->user_id }}</td>
+      <td>{{ $s->user_surname }} {{ $s->user_name }}</td>
+      <td>{{ $s->user_phone }}</td>
        <td>
          <a href={{url("/create/cheque/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>

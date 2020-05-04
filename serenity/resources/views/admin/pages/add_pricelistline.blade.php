@@ -29,19 +29,19 @@
         </div>
     </div>
      <div class="form-group">
-       <div class="col-md-15">
+        <div class="col-md-15">
              {{Form::label('service_id', 'Услуга')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('service_id', null, ['class'=>'form-control'])}}
-        </div>
-        </div>
+        {{ Form::select('service_id', $idservice, 'id') }}
+     </div>
+    </div>
      <div class="form-group">
        <div class="col-md-15">
              {{Form::label('pricelist_id', 'Прайскурант')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('pricelist_id', null, ['class'=>'form-control'])}}
+             {{ Form::select('pricelist_id', $idpricelist, 'id') }}
         </div>
         </div>
     <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\NewCreate;
 
+use App\User;
 use App\Models\Cheque;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,8 +16,9 @@ class ChequeCreateController extends Controller
      */
     public function index()
     {
-
-        $cheque=Cheque::orderBy('created_at')->get();
+        $iduser=new User;
+        $cheque=Cheque::join('users' ,'users.id' , '=','cheques.user_id')->
+        select('cheques.id', 'cheques.date', 'users.surname as user_surname', 'users.name as user_name','users.phone as user_phone')->get();
         return view('admin.pages.index_cheque')->withCheque($cheque);;
     }
 
@@ -27,7 +29,9 @@ class ChequeCreateController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_cheque');
+        $iduser=User::pluck('email','id');
+
+        return view('admin.pages.add_cheque')->withIduser($iduser);
     }
 
     /**
@@ -73,8 +77,9 @@ class ChequeCreateController extends Controller
     public function edit($id)
     {
         $cheque=Cheque::find($id);
+        $iduser=User::pluck('email','id');
 
-        return view('admin.pages.edit_cheque')->withCheque($cheque);
+        return view('admin.pages.edit_cheque')->withCheque($cheque)->withIduser($iduser);
 
     }
 

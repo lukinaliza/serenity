@@ -4,7 +4,7 @@
 
 @section('content')
 
-    {!!  Form::model($userrole, ['route' => ['cheque.update', $userrole->id],  'method' => 'put'])!!}
+    {!!  Form::model($cheque, ['route' => ['cheque.update', $cheque->id],  'method' => 'put'])!!}
            <head>
   <meta charset="utf-8">
   <title>Изменить чек</title>
@@ -30,13 +30,13 @@
         </div>
         </div>
      <div class="form-group">
-       <div class="col-md-15">
-             {{Form::label('user_id', 'Пользователь')}}
+        <div class="col-md-15">
+             {{Form::label('user_id', 'E-mail пользователя')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('user_id', null, ['class'=>'form-control'])}}
-        </div>
-        </div>
+        {{ Form::select('user_id', $iduser, 'id') }}
+     </div>
+    </div>
     <div class="form-group">
     <div class="col-md-15">
          {{Form::submit('Добавить', null, ['class'=>'btn btn-success'])}}
