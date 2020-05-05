@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\NewCreate;
 
 use App\Models\Sheldue;
+use DB;
+use App\Models\Service;
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +18,11 @@ class SheldueCreateController extends Controller
      */
     public function index()
     {
-        $sheldue=Sheldue::orderBy('created_at')->get();
+        $sheldue=Sheldue::join('specializations', 'specializations.id', '=', 'sheldues.spec_id')->
+        join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        join('services', 'services.id', '=', 'sheldues.service_id')->
+        select('sheldues.id', 'sheldues.date', 'sheldues.time' ,'users.surname as master', 'services.name as service_name')->get();
         return view('admin.pages.index_sheldue')->withSheldue($sheldue);;
     }
 
@@ -26,7 +33,14 @@ class SheldueCreateController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_sheldue');
+        $idmaster=Specialization::join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        join('list_specializations', 'list_specializations.id', '=', 'specializations.list_specialization_id')->
+        select(DB::raw("concat(users.surname,' ',list_specializations.name)as master"), 'specializations.id as id');
+
+        $idservice=Service::pluck('name','id');
+        $idspecial=$idmaster->pluck('master','id');
+        return view('admin.pages.add_sheldue')->withIdspecial($idspecial)->withIdservice($idservice);
     }
 
     /**
@@ -42,7 +56,7 @@ class SheldueCreateController extends Controller
         $sheldue->date=$request->date;
         $sheldue->time=$request->time;
         $sheldue->service_id=$request->service_id;
-        $sheldue->master_id=$request->master_id;
+        $sheldue->spec_id=$request->spec_id;
         $sheldue->save();
 
         $request->session()->flash('success', 'График добавлен!');
@@ -73,9 +87,16 @@ class SheldueCreateController extends Controller
      */
     public function edit($id)
     {
+         $idmaster=Specialization::join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        join('list_specializations', 'list_specializations.id', '=', 'specializations.list_specialization_id')->
+        select(DB::raw("concat(users.surname,' ',list_specializations.name)as master"), 'specializations.id as id');
+
+        $idservice=Service::pluck('name','id');
+        $idspecial=$idmaster->pluck('master','id');
         $sheldue=Sheldue::find($id);
 
-        return view('admin.pages.edit_sheldue')->withSheldue($sheldue);
+        return view('admin.pages.edit_sheldue')->withSheldue($sheldue)->withIdspecial($idspecial)->withIdservice($idservice);
 
     }
 
@@ -93,7 +114,7 @@ class SheldueCreateController extends Controller
         $sheldue->date=$request->date;
         $sheldue->time=$request->time;
         $sheldue->service_id=$request->service_id;
-        $sheldue->master_id=$request->master_id;
+        $sheldue->spec_id=$request->spec_id;
         $sheldue->save();
 
         $request->session()->flash('success', 'График изменен успешно!');

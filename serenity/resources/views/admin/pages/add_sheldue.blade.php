@@ -40,16 +40,16 @@
        <div class="col-md-15">
              {{Form::label('service_id', 'Услуга')}}
        </div>
-       <div class="col-md-15">
-             {{Form::text('service_id', null, ['class'=>'form-control'])}}
+        <div class="col-md-15">
+        {{ Form::select('service_id', $idservice, 'id') }}
         </div>
         </div>
      <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('master_id', 'Мастер')}}
+             {{Form::label('spec_id', 'Мастер')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('master_id', null, ['class'=>'form-control'])}}
+             {{Form::select('spec_id', $idspecial, 'id')}}
         </div>
         </div>
     <div class="form-group">

@@ -1,10 +1,10 @@
 @extends('admin.admin-index')
 
-@section('title', 'Добавить поле')
+@section('title', 'Изменить поле')
 
 @section('content')
 
-    {!!  Form::model($master, ['route' => ['sheldue.update', $master->id],  'method' => 'put'])!!}
+    {!!  Form::model($sheldue, ['route' => ['sheldue.update', $sheldue->id],  'method' => 'put'])!!}
            <head>
   <meta charset="utf-8">
   <title>Добавить график</title>
@@ -41,20 +41,20 @@
              {{Form::label('service_id', 'Услуга')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('service_id', null, ['class'=>'form-control'])}}
+            {{ Form::select('service_id', $idservice, 'id') }}
         </div>
         </div>
      <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('master_id', 'Мастер')}}
+             {{Form::label('spec_id', 'Мастер')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('master_id', null, ['class'=>'form-control'])}}
+             {{Form::select('spec_id', $idspecial, 'id')}}
         </div>
         </div>
     <div class="form-group">
     <div class="col-md-15">
-         {{Form::submit('Добавить', null, ['class'=>'btn btn-success'])}}
+         {{Form::submit('Изменить', null, ['class'=>'btn btn-success'])}}
     </div>
     </div>
     </div>

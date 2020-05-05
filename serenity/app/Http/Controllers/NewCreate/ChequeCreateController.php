@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\NewCreate;
 
+use App\Models\UserRole;
+use App\Models\Role;
 use App\User;
+use DB;
 use App\Models\Cheque;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +20,10 @@ class ChequeCreateController extends Controller
     public function index()
     {
         $iduser=new User;
-        $cheque=Cheque::join('users' ,'users.id' , '=','cheques.user_id')->
+        $cheque=Cheque::join('user_roles', 'user_roles.id', '=', 'cheques.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
         select('cheques.id', 'cheques.date', 'users.surname as user_surname', 'users.name as user_name','users.phone as user_phone')->get();
-        return view('admin.pages.index_cheque')->withCheque($cheque);;
+        return view('admin.pages.index_cheque')->withCheque($cheque);
     }
 
     /**
@@ -29,8 +33,11 @@ class ChequeCreateController extends Controller
      */
     public function create()
     {
-        $iduser=User::pluck('email','id');
+        $iduserrole=UserRole::join('users', 'users.id', '=', 'user_roles.user_id')->join('roles', 'roles.id', '=', 'user_roles.role_id')->
+        where('roles.name', '=', 'Клиент')->
+        select( "user_roles.id as id", DB::raw("concat(users.surname,' ',users.name,' | ',email) as mail"))->get();
 
+        $iduser=$iduserrole->pluck('mail','id');
         return view('admin.pages.add_cheque')->withIduser($iduser);
     }
 
@@ -45,7 +52,7 @@ class ChequeCreateController extends Controller
         $cheque = new Cheque();
 
         $cheque->date=$request->date;
-        $cheque->user_id=$request->user_id;
+        $cheque->user_role_id=$request->user_role_id;
         $cheque->save();
 
         $request->session()->flash('success', 'Чек добавлен!');
@@ -76,9 +83,11 @@ class ChequeCreateController extends Controller
      */
     public function edit($id)
     {
+        $iduserrole=UserRole::join('users', 'users.id', '=', 'user_roles.user_id')->join('roles', 'roles.id', '=', 'user_roles.role_id')->
+        where('roles.name', '=', 'Клиент')->
+        select('users.email as mail', 'users.id as id')->get();
+        $iduser=$iduserrole->pluck('mail','id');
         $cheque=Cheque::find($id);
-        $iduser=User::pluck('email','id');
-
         return view('admin.pages.edit_cheque')->withCheque($cheque)->withIduser($iduser);
 
     }
@@ -95,7 +104,7 @@ class ChequeCreateController extends Controller
         $cheque=Cheque::find($id);
 
         $cheque->date=$request->date;
-        $cheque->user_id=$request->user_id;
+        $cheque->user_role_id=$request->user_role_id;
         $cheque->save();
 
         $request->session()->flash('success', 'Чек  изменен успешно!');

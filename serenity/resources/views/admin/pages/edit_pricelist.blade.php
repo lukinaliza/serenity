@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('until', До)}}
+             {{Form::label('until', 'До')}}
        </div>
        <div class="col-md-15">
              {{Form::datetime('until', null, ['class'=>'form-control'])}}

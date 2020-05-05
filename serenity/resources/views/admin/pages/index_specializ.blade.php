@@ -9,7 +9,7 @@
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Id</th>
       <th scope="col">Категория</th>
       <th scope="col">Мастер</th>
       <th scope="col">Управление</th>
@@ -20,8 +20,8 @@
     @foreach($specializ as $s)
      <tr>
       <th scope="row">{{$s->id}}</th>
-      <td>{{$s->list_specialization_id}}</td>
-      <td>{{$s->master_id}}</td>
+      <td>{{$s->specializ_name}}</td>
+      <td>{{$s->user_surname}}{{$s->user_name}}</td>
        <td>
           <a href={{url("/create/specializ/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>

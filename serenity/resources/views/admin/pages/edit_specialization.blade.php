@@ -5,7 +5,21 @@
 @section('content')
 
     {!!  Form::model($specialization, ['route' => ['specialization.update', $specialization->id],  'method' => 'put'])!!}
-    <div class="form-group">
+            <head>
+  <meta charset="utf-8">
+  <title>Добавить график</title>
+  <style>
+   .text {
+    margin-left: auto;
+    margin-right: auto;
+     font-size: 20pt;
+     font-style: italic;
+    width: auto
+   }
+  </style>
+ </head>
+ <body>
+ <div class="form-group">
        <div class="col-md-15">
              {{Form::label('name', 'Название специализации')}}
        </div>
@@ -25,6 +39,6 @@
          {{Form::submit('Добавить', null, ['class'=>'btn btn-primrary'])}}
     </div>
     </div>
-
+ </body>
     {!! Form::close() !!}
 @endsection

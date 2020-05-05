@@ -30,10 +30,10 @@
         </div>
      <div class="form-group">
         <div class="col-md-15">
-             {{Form::label('user_id', 'E-mail пользователя')}}
+             {{Form::label('user_role_id', 'E-mail пользователя')}}
        </div>
        <div class="col-md-15">
-        {{ Form::select('user_id', $iduser, 'id') }}
+        {{ Form::select('user_role_id', $iduser, 'id') }}
      </div>
     </div>
     <div class="form-group">

@@ -7,7 +7,7 @@
 
     <head>
   <meta charset="utf-8">
-  <title>Добавить чек</title>
+  <title>Добавить запись</title>
   <style>
    .text {
     margin-left: auto;
@@ -25,7 +25,7 @@
              {{Form::label('cheque_id', 'Чек')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('cheque_id', null, ['class'=>'form-control'])}}
+             {{Form::select('cheque_id', $phoneuser, 'id')}}
         </div>
         </div>
        <div class="form-group">
@@ -33,7 +33,7 @@
              {{Form::label('sheldue_id', 'График')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('sheldue_id', null, ['class'=>'form-control'])}}
+             {{Form::select('sheldue_id', $sheldue, 'id')}}
         </div>
         </div>
      <div class="form-group">
@@ -41,7 +41,7 @@
              {{Form::label('price_line_id', 'Прайс')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('price_line_id', null, ['class'=>'form-control'])}}
+             {{Form::select('price_line_id', $cost, 'id')}}
         </div>
         </div>
     <div class="form-group">

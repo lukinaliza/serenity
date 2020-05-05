@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\NewCreate;
 
 use App\Models\UserRole;
+use App\Models\Role;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,9 @@ class UserRoleCreateController extends Controller
      */
     public function index()
     {
-        $userrole=UserRole::orderBy('created_at')->get();
+        $userrole=UserRole::join('users', 'users.id', '=', 'user_roles.user_id')->
+        join('roles','roles.id', '=', 'user_roles.role_id')->
+        select('user_roles.id','users.surname as user_surname','users.name as user_name','users.phone as user_phone', 'roles.name as role_name')->get();
         return view('admin.pages.index_userrole')->withUserrole($userrole);;
     }
 
@@ -26,7 +30,9 @@ class UserRoleCreateController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_userrole');
+        $iduser=User::pluck('email','id');
+        $idrole=Role::pluck('name','id');
+        return view('admin.pages.add_userrole')->withIduser($iduser)->withIdrole($idrole);
     }
 
     /**
@@ -72,8 +78,9 @@ class UserRoleCreateController extends Controller
     public function edit($id)
     {
         $userrole=UserRole::find($id);
-
-        return view('admin.pages.edit_userrole')->withUserrole($userrole);
+        $iduser=User::pluck('email','id');
+        $idrole=Role::pluck('name','id');
+        return view('admin.pages.edit_userrole')->withUserrole($userrole)->withIduser($iduser)->withIdrole($idrole);
 
     }
 

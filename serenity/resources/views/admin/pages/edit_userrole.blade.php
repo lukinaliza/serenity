@@ -26,7 +26,7 @@
              {{Form::label('user_id', 'Пользователь')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('user_id', null, ['class'=>'form-control'])}}
+              {{Form::select('user_id', $iduser, 'id')}}
         </div>
         </div>
      <div class="form-group">
@@ -34,7 +34,7 @@
              {{Form::label('role_id', 'Роль')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('role_id', null, ['class'=>'form-control'])}}
+             {{Form::select('role_id', $idrole, 'id')}}
         </div>
         </div>
     <div class="form-group">

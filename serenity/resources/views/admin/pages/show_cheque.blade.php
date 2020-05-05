@@ -18,7 +18,7 @@
  <body>
   <div class="text">
     дата - {!!$cheque->date!!}<br>
-    пользователь - {!!$cheque->user_id!!}<br>
+    пользователь - {!!$cheque->user_role_id!!}<br>
 
     <a href={{url("/create/cheque/{$cheque->id}/edit")}} class='btn btn-primary'>
         Редактировать</a>

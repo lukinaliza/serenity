@@ -1,7 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\NewCreate;
-
+use App\Models\Cheque;
+use App\User;
+use DB;
+use App\Models\Sheldue;
+use App\Models\Pricelist;
+use App\Models\ListSpecialization;
+use App\Models\PricelistLine;
 use App\Models\ServiceOrderes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,8 +22,20 @@ class ServiceOrderesCreateController extends Controller
     public function index()
     {
 
-        $serviceorder=ServiceOrderes::orderBy('created_at')->get();
-        return view('admin.pages.index_serviceorder')->withServiceorder($serviceorder);;
+        $serviceorder=ServiceOrderes::join('cheques' ,'cheques.id' , '=','service_orderes.cheque_id')->
+        join('sheldues' ,'sheldues.id' , '=','service_orderes.sheldue_id')->
+        join('pricelist_lines' ,'pricelist_lines.id' , '=','service_orderes.price_line_id')->
+        join('user_roles', 'user_roles.id', '=', 'cheques.user_role_id')->
+        join('users' ,'users.id' , '=','user_roles.user_id')->
+        join('services' ,'services.id' , '=','sheldues.service_id')->
+        select('service_orderes.id', 'pricelist_lines.cost', 'users.name as user_name', 'users.surname as user_surname','users.phone as user_phone',
+         'sheldues.date as shelduedate', 'sheldues.time as shelduetime', 'services.name as service_name')->get();
+        $master=Sheldue::join('specializations', 'specializations.id', '=', 'sheldues.spec_id')->
+        join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        join('list_specializations', 'list_specializations.id', '=', 'specializations.list_specialization_id')->
+        select('users.name as master_name', 'users.surname as master_surname','list_specializations.name as spec' )->get();
+        return view('admin.pages.index_serviceorder')->withServiceorder($serviceorder)->withMaster($master);
     }
 
     /**
@@ -27,7 +45,23 @@ class ServiceOrderesCreateController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.add_serviceorder');
+        $user=Cheque::join('user_roles', 'user_roles.id', '=', 'cheques.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        select("cheques.id as id", DB::raw("concat( users.surname,' ',users.name, ' ', users.phone) as user"))->get();
+        $phoneuser=$user->pluck('user', 'id');
+
+        $sheldue=Sheldue::join('services', 'services.id', '=', 'sheldues.service_id')->
+        join('specializations', 'specializations.id', '=', 'sheldues.spec_id')->
+        join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        select("sheldues.id as id", DB::raw("concat (sheldues.date,' ',sheldues.time, ' ', services.name,' ',users.surname) as sheldue"))->pluck('sheldue', 'id');
+
+        $cost=PricelistLine::join('services', 'services.id', '=', 'pricelist_lines.service_id')->
+        join('pricelists', 'pricelists.id', '=', 'pricelist_lines.pricelist_id')->
+
+        select("pricelist_lines.id as id", DB::raw("concat (services.name,' ',pricelist_lines.cost, ' ', pricelists.name) as price"))->pluck('price', 'id');
+
+        return view('admin.pages.add_serviceorder')->withPhoneuser($phoneuser)->withSheldue($sheldue)->withCost($cost);
     }
 
     /**
@@ -73,9 +107,25 @@ class ServiceOrderesCreateController extends Controller
      */
     public function edit($id)
     {
+        $user=Cheque::join('user_roles', 'user_roles.id', '=', 'cheques.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        select("cheques.id as id", DB::raw("concat( users.surname,' ',users.name, ' ', users.phone) as user"))->get();
+        $phoneuser=$user->pluck('user', 'id');
+
+        $sheldue=Sheldue::join('services', 'services.id', '=', 'sheldues.service_id')->
+        join('specializations', 'specializations.id', '=', 'sheldues.spec_id')->
+        join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('users', 'users.id', '=', 'user_roles.user_id')->
+        select("sheldues.id as id", DB::raw("concat (sheldues.date,' ',sheldues.time, ' ', services.name,' ',users.surname) as sheldue"))->pluck('sheldue', 'id');
+
+        $cost=PricelistLine::join('services', 'services.id', '=', 'pricelist_lines.service_id')->
+        join('pricelists', 'pricelists.id', '=', 'pricelist_lines.pricelist_id')->
+
+        select("pricelist_lines.id as id", DB::raw("concat (services.name,' ',pricelist_lines.cost, ' ', pricelists.name) as price"))->pluck('price', 'id');
+
         $serviceorder=ServiceOrderes::find($id);
 
-        return view('admin.pages.edit_serviceorder')->withServiceorder($serviceorder);
+        return view('admin.pages.edit_serviceorder')->withServiceorder($serviceorder)->withPhoneuser($phoneuser)->withSheldue($sheldue)->withCost($cost);
 
     }
 

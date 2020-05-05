@@ -20,7 +20,7 @@
     <p>Дата - {{$sheldue->date}}<br>
     Время - {{$sheldue->time}}<br>
     Услуга - {!!$sheldue->service_id!!}<br>
-    Мастер - {!!$sheldue->master_id!!}<br>
+    Мастер - {!!$sheldue->spec_id!!}<br>
 
     <a href={{url("/create/sheldue/{$sheldue->id}/edit")}} class='btn btn-primary'>
         Редактировать</a>

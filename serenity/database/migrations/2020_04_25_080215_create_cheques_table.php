@@ -16,8 +16,8 @@ class CreateChequesTable extends Migration
         Schema::create('cheques', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->datetime('date');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+           $table->unsignedBigInteger('user_role_id');
+            $table->foreign('user_role_id')->references('id')->on('user_roles');
             $table->timestamps();
         });
     }

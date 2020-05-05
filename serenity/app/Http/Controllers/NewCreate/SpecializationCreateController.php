@@ -112,7 +112,7 @@ class SpecializationCreateController extends Controller
 
         $specialization->delete();
 
-        return view('admin.pages.index_specialization');
+        return redirect()->route('specialization.index');
 
     }
 }

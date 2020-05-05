@@ -17,8 +17,8 @@ class CreateSpecializationsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('list_specialization_id');
             $table->foreign('list_specialization_id')->references('id')->on('list_specializations');
-            $table->unsignedBigInteger('master_id');
-            $table->foreign('master_id')->references('id')->on('masters');
+            $table->unsignedBigInteger('user_role_id');
+            $table->foreign('user_role_id')->references('id')->on('user_roles');
             $table->timestamps();
         });
     }

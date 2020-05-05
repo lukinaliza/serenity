@@ -6,7 +6,7 @@
     {!! Form::open(['route' => 'service.store']) !!}
         <head>
   <meta charset="utf-8">
-  <title>Добавить мастера</title>
+  <title>Добавить услугу</title>
   <style>
    .text {
     margin-left: auto;

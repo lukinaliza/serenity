@@ -1,13 +1,12 @@
 @extends('admin.admin-index')
 
-@section('title', 'Добавить поле')
 
 @section('content')
 
     {!!  Form::model($serviceorder, ['route' => ['serviceorder.update', $serviceorder->id],  'method' => 'put'])!!}
            <head>
   <meta charset="utf-8">
-  <title>Изменить чек</title>
+  <title>Изменить поле</title>
   <style>
    .text {
     margin-left: auto;
@@ -21,12 +20,12 @@
   <body>
  <div class="text">
 
-         <div class="form-group">
+       <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('cheque_id', 'Чек')}}
+             {{Form::label('cheque_id', 'Клиент')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('cheque_id', null, ['class'=>'form-control'])}}
+             {{Form::select('cheque_id', $phoneuser, 'id')}}
         </div>
         </div>
        <div class="form-group">
@@ -34,7 +33,7 @@
              {{Form::label('sheldue_id', 'График')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('sheldue_id', null, ['class'=>'form-control'])}}
+             {{Form::select('sheldue_id', $sheldue, 'id')}}
         </div>
         </div>
      <div class="form-group">
@@ -42,7 +41,7 @@
              {{Form::label('price_line_id', 'Прайс')}}
        </div>
        <div class="col-md-15">
-             {{Form::text('price_line_id', null, ['class'=>'form-control'])}}
+             {{Form::select('price_line_id', $cost, 'id')}}
         </div>
         </div>
     <div class="form-group">

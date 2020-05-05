@@ -10,19 +10,28 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">чек</th>
-      <th scope="col">график</th>
-      <th scope="col">прайс</th>
+      <th scope="col">Клиент</th>
+      <th scope="col">Номер телефона</th>
+      <th scope="col">Дата и время</th>
+      <th scope="col">Процедура</th>
+      <th scope="col">Стоимость</th>
+      <th scope="col">Мастер</th>
+      <th scope="col">Специальность</th>
     </tr>
   </thead>
   <tbody>
 
     @foreach($serviceorder as $s)
+    @foreach($master as $m)
      <tr>
       <th scope="row">{{$s->id}}</th>
-      <td>{{ $s->cheque_id }}</td>
-      <td>{{ $s->sheldue_id }}</td>
-      <td>{{ $s->price_line_id }}</td>
+      <td>{{ $s->user_surname }} {{ $s->user_name }}</td>
+      <td>{{ $s->user_phone }}</td>
+      <td>{{ $s->shelduedate }} {{ $s->shelduetime }}</td>
+      <td>{{ $s->service_name }}</td>
+      <td>{{ $s->cost }}</td>
+      <td>{{ $m->master_name }}</td>
+      <td>{{ $m->spec }}</td>
        <td>
          <a href={{url("/create/serviceorder/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>
@@ -31,7 +40,7 @@
             {!! Form::close() !!}
       </td>
     </tr>
-
+@endforeach
     @endforeach
   </tbody>
 </table>

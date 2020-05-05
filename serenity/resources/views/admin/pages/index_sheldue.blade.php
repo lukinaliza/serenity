@@ -23,8 +23,8 @@
       <th scope="row">{{$s->id}}</th>
       <td>{{ $s->date }}</td>
       <td>{{ $s->time }}</td>
-      <td>{{ $s->service_id }}</td>
-      <td>{{ $s->master_id }}</td>
+      <td>{{ $s->service_name }}</td>
+      <td>{{ $s->master }}</td>
        <td>
          <a href={{url("/create/sheldue/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>

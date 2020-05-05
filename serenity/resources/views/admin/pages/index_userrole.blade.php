@@ -11,6 +11,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Пользователь</th>
+      <th scope="col">Номер телефона</th>
       <th scope="col">Роль</th>
     </tr>
   </thead>
@@ -19,8 +20,9 @@
     @foreach($userrole as $s)
      <tr>
       <th scope="row">{{$s->id}}</th>
-      <td>{{ $s->user_id }}</td>
-      <td>{{ $s->role_id }}</td>
+      <td>{{ $s->user_surname }} {{ $s->user_name }}</td>
+      <td>{{ $s->user_phone }}</td>
+      <td>{{ $s->role_name }}</td>
        <td>
          <a href={{url("/create/userrole/{$s->id}/edit")}} class='btn btn-primary', title ='Редактировать'btn btn-primary, style='position: relative;float:left'>
              Редактировать</a>
