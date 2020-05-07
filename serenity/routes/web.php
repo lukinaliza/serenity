@@ -11,8 +11,18 @@
 |
 */
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
+Route::group(['prefix'=>'service', 'namespace'=>'Admin'],  function(){
+    Route::get('/', 'ServiceController@service')->name('service.index');
+});
+
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],  function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+});
+Route::group(['prefix'=>'sale', 'namespace'=>'Admin'],  function(){
+    Route::get('/', 'SalController@sale')->name('sale.index');
+});
+Route::group(['prefix'=>'album', 'namespace'=>'Admin'],  function(){
+    Route::get('/', 'AlbumController@album')->name('album.index');
 });
 
 Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
