@@ -1,12 +1,12 @@
 @extends('admin.admin-index')
 
 @section('content')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 <head>
   <meta charset="utf-8">
   <title>Таблица услуг</title>
  </head>
-
-    <table class="table">
+    <table class="table table-striped" id="info-table">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -35,5 +35,4 @@
     @endforeach
   </tbody>
 </table>
-
 @endsection

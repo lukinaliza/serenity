@@ -15,10 +15,9 @@ class CreateShelduesTable extends Migration
     {
         Schema::create('sheldues', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date');
-            $table->time('time');
-            $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->datetime('date');
+            $table->unsignedBigInteger('price_line_id');
+            $table->foreign('price_line_id')->references('id')->on('pricelist_lines');
             $table->unsignedBigInteger('spec_id');
             $table->foreign('spec_id')->references('id')->on('specializations');
             $table->timestamps();

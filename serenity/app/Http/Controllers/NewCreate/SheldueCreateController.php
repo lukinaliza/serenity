@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\NewCreate;
 
 use App\Models\Sheldue;
+use App\Models\Pricelist;
 use DB;
 use App\Models\Service;
 use App\Models\Specialization;
@@ -20,9 +21,10 @@ class SheldueCreateController extends Controller
     {
         $sheldue=Sheldue::join('specializations', 'specializations.id', '=', 'sheldues.spec_id')->
         join('user_roles', 'user_roles.id', '=', 'specializations.user_role_id')->
+        join('pricelist_lines', 'pricelist_lines.id', '=', 'sheldues.price_line_id')->
+        join('services', 'services.id', '=', 'pricelist_lines.service_id')->
         join('users', 'users.id', '=', 'user_roles.user_id')->
-        join('services', 'services.id', '=', 'sheldues.service_id')->
-        select('sheldues.id', 'sheldues.date', 'sheldues.time' ,'users.surname as master', 'services.name as service_name')->get();
+        select('sheldues.id', 'sheldues.date' ,'users.surname as master', 'services.name as service_name')->get();
         return view('admin.pages.index_sheldue')->withSheldue($sheldue);;
     }
 
@@ -38,7 +40,12 @@ class SheldueCreateController extends Controller
         join('list_specializations', 'list_specializations.id', '=', 'specializations.list_specialization_id')->
         select(DB::raw("concat(users.surname,' ',list_specializations.name)as master"), 'specializations.id as id');
 
-        $idservice=Service::pluck('name','id');
+        $idpriceline=Pricelist::join('pricelist_lines', 'pricelists.id', '=','pricelist_lines.pricelist_id')->
+        join('services', 'services.id', '=', 'pricelist_lines.service_id')->
+        select(DB::raw("concat(services.name,' - ', pricelist_lines.cost, ' - ', pricelists.name)as service"), 'pricelist_lines.id as id');
+        $idservice=$idpriceline->pluck('service','id');
+        $idspecial=$idmaster->pluck('master','id');
+
         $idspecial=$idmaster->pluck('master','id');
         return view('admin.pages.add_sheldue')->withIdspecial($idspecial)->withIdservice($idservice);
     }
@@ -54,8 +61,7 @@ class SheldueCreateController extends Controller
         $sheldue = new Sheldue();
 
         $sheldue->date=$request->date;
-        $sheldue->time=$request->time;
-        $sheldue->service_id=$request->service_id;
+        $sheldue->price_line_id=$request->price_line_id;
         $sheldue->spec_id=$request->spec_id;
         $sheldue->save();
 
@@ -92,7 +98,10 @@ class SheldueCreateController extends Controller
         join('list_specializations', 'list_specializations.id', '=', 'specializations.list_specialization_id')->
         select(DB::raw("concat(users.surname,' ',list_specializations.name)as master"), 'specializations.id as id');
 
-        $idservice=Service::pluck('name','id');
+        $idpriceline=Pricelist::join('pricelist_lines', 'pricelists.id', '=','pricelist_lines.pricelist_id')->
+        join('services', 'services.id', '=', 'pricelist_lines.service_id')->
+        select(DB::raw("concat(services.name,' - ', pricelist_lines.cost, ' - ', pricelists.name)as service"), 'pricelist_lines.id as id');
+        $idservice=$idpriceline->pluck('service','id');
         $idspecial=$idmaster->pluck('master','id');
         $sheldue=Sheldue::find($id);
 
@@ -112,8 +121,7 @@ class SheldueCreateController extends Controller
         $sheldue=Sheldue::find($id);
 
         $sheldue->date=$request->date;
-        $sheldue->time=$request->time;
-        $sheldue->service_id=$request->service_id;
+        $sheldue->price_line_id=$request->price_line_id;
         $sheldue->spec_id=$request->spec_id;
         $sheldue->save();
 

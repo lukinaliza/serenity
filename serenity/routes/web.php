@@ -25,8 +25,28 @@ Route::group(['prefix'=>'album', 'namespace'=>'Admin'],  function(){
     Route::get('/', 'AlbumController@album')->name('album.index');
 });
 
+Route::group(['prefix'=>'about', 'namespace'=>'Admin'],  function(){
+    Route::get('/', 'AboutController@about')->name('about.index');
+});
+
+Route::group(['prefix'=>'mainadmin', 'namespace'=>'Panel', 'middleware'=>['roles:Администратор']], function(){
+    Route::get('/', 'MainAdminController@mainadmin')->name('mainadmin.index');
+});
+
+Route::group(['prefix'=>'calendar', 'namespace'=>'Panel'], function(){
+    Route::resource('calendar', 'CalendarController');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+     Route::get('/load-events', 'SheldueCalendarController@index')->name('routeLoadEvents');
+});
+
 Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
     Route::resource('service', 'ServiceInsertController');
+});
+
+Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
+    Route::resource('user', 'UserCreateController');
 });
 
 Route::group(['prefix'=>'create', 'namespace'=>'NewCreate', 'middleware'=>['auth']], function(){
@@ -76,3 +96,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+

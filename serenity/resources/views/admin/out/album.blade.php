@@ -1,7 +1,7 @@
 
 @include('admin.out.interface')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-
+<title> Фотогалерея </title>
     <link href="css/button.css" rel="stylesheet">
     <p style='font-style:italic; text-align:center; font-size: 40pt'> Фотогалерея </p>
 <div class="container marketing">

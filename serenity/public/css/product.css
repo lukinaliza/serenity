@@ -138,5 +138,17 @@
       flex: 1;
     }
   }
+.butggton {
+  text-decoration: none;
+  color: #7f8c8d;
+  background: #fefefe;
+    border: 0;
+    padding: 0;
+  margin: 20px auto;
+  text-align:center;
+  display:block;
+  position: relative;
+  height:25px;
+ }
 
   .overflow-hidden { overflow: hidden; }

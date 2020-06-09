@@ -22,26 +22,19 @@
  <div class="text">
     <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('date', 'Дата')}}
+             {{Form::label('date', 'Дата Время')}}
        </div>
        <div class="col-md-15">
-             {{Form::date('date', null, ['class'=>'form-control'])}}
+             {{Form::datetime('date', null, ['class'=>'form-control'])}}
         </div>
     </div>
-    <div class="form-group">
-       <div class="col-md-15">
-             {{Form::label('time', 'Время')}}
-       </div>
-       <div class="col-md-15">
-             {{Form::time('time', null, ['class'=>'form-control'])}}
-        </div>
-        </div>
+
      <div class="form-group">
        <div class="col-md-15">
-             {{Form::label('service_id', 'Услуга')}}
+             {{Form::label('price_line_id', 'Услуга')}}
        </div>
        <div class="col-md-15">
-            {{ Form::select('service_id', $idservice, 'id') }}
+            {{ Form::select('price_line_id', $idservice, 'id') }}
         </div>
         </div>
      <div class="form-group">

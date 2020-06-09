@@ -1,9 +1,9 @@
 @include('admin.out.interface')
     <p style='font-style:italic; text-align:center; font-size: 40pt'> Акции и скидки </p>
-
+<title> Акции и скидки </title>
     <div class="sale-wrap">
   <div class="sale-inner">
-  <div class="sale-text"><h2 class="text">Летнее предложение</h2>
+  <div class="sale-text"><h2 class="text">Летнее предложение до 31 августа</h2>
     <p class="text">10% <span>скидка на комплекс наращивания ресниц и оформление бровей</span></p>
     <button type="button" class="b1" data-toggle="modal" data-target="#summersale" style = 'position: relative; float:center'>
               Подробнее </button>
@@ -12,7 +12,7 @@
 </div>
 <div class="sale-wrap">
   <div class="sale-inner">
-  <div class="sale-text"><h2 class="text">Супер предложение</h2>
+  <div class="sale-text"><h2 class="text">Супер предложение 2020 года</h2>
     <p class="text"><span>Вместе дешевле</br>
     Оформление бровей хной</span></p>
     <button type="button" class="b1" data-toggle="modal" data-target="#together" style = 'position: relative; float:center'>

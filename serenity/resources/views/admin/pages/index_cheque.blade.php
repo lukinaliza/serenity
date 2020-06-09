@@ -6,7 +6,7 @@
   <title>Таблица чеков</title>
  </head>
 
-    <table class="table">
+     <table class="table table-striped" id="info-table">
   <thead>
     <tr>
       <th scope="col">ID</th>

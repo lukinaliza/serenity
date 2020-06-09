@@ -16,7 +16,7 @@ class RoleCreateController extends Controller
      */
     public function index()
     {
- $role=Role::orderBy('created_at')->get();
+        $role=Role::orderBy('created_at')->get();
         return view('admin.pages.index_role')->withRole($role);;
     }
 

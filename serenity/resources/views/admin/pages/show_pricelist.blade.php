@@ -28,7 +28,7 @@
    {{Form::submit('Удалить',['type' => 'submit', 'name' => 'delete', 'value' => 'delete', 'class' => 'btn btn-danger', 'title' => 'Удалить из базы']) }}
    {!! Form::close() !!}
    <a href={{url("/create/pricelist")}} class='btn btn-info'>
-        Перейти к таблице мастеров</a>
+        Перейти к таблице прайс-листов</a>
    </p>
     </div>
  </body>

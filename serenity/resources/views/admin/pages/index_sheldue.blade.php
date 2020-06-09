@@ -6,12 +6,11 @@
   <title>Таблица графиков</title>
  </head>
 
-    <table class="table">
+    <table class="table table-striped" id="info-table">
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Дата</th>
-      <th scope="col">Время</th>
+      <th scope="col">Дата Время</th>
       <th scope="col">Услуга</th>
       <th scope="col">Мастер</th>
     </tr>
@@ -22,7 +21,6 @@
      <tr>
       <th scope="row">{{$s->id}}</th>
       <td>{{ $s->date }}</td>
-      <td>{{ $s->time }}</td>
       <td>{{ $s->service_name }}</td>
       <td>{{ $s->master }}</td>
        <td>
